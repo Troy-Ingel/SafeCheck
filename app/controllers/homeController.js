@@ -15,10 +15,10 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 	///////////
 
 	function activate(){
-		// initMap();
+		initMap();
 	}
 	function initMap() {
-		// $scope.loading = true;
+		$scope.loading = true;
 
 		GeoLocationFactory.getLocation(function(pos){
 
@@ -36,25 +36,31 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 				center: myLatlng
 			});
 
-			GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
-		});
+			// GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
 
-		CheckInFactory.getPeople().then(function(response){
 
-			let people = response;
+			CheckInFactory.getPeople().then(function(response){
 
-			for(let i = 0; i < people.length; i++){
-				if(people[i]){
-					let position = {
-						lat: people.lat,
-						lng: people.lon
-					};
+				let people = response;
 
-					let status = people.status;
-					let name = people.first_name + ' ' + people.last_name;
-					GoogleMapsFactory.addMarker(position, map, name, '', getMarkerColor(status));
+				for(let i = 0; i < people.length; i++){
+					if(people[i]){
+
+						let curPerson = people[i];
+
+						let position = {
+							lat: parseFloat(curPerson.lat),
+							lng: parseFloat(curPerson.lon)
+						};
+
+						let initials = (curPerson.first_name.substring(0, 1) + curPerson.last_name.substring(0, 1)).toUpperCase();
+						
+						let status = curPerson.status;
+						let name = curPerson.first_name + ' ' + curPerson.last_name;
+						GoogleMapsFactory.addMarker(position, map, name, initials, getMarkerColor(status));
+					}
 				}
-			}
+			});
 		});
 	}
 
@@ -64,14 +70,14 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 		});
 	}
 
-	function() getMarkerColor(status){
+	function getMarkerColor(status){
 		if(status == 'G'){
-			return '../../img/GoogleMapsMarkers/green_MarkerS';
+			return 'img/GoogleMapsMarkers/green_MarkerS.png';
 		}
 		else if(status == 'I'){
-			return '../../img/GoogleMapsMarkers/yellow_MarkerA';
+			return 'img/GoogleMapsMarkers/yellow_MarkerA.png';
 		}else{
-			return '../../img/GoogleMapsMarkers/red_MarkerA';
+			return 'img/GoogleMapsMarkers/red_MarkerA.png';
 		}
 	}
 	
