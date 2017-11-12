@@ -25,16 +25,21 @@ function GoogleMapsFactory($http){
 	function createMap(elementID, options){
 		return new google.maps.Map(document.getElementById(elementID), options);
 	}
-	function addMarker(position, map, title, label){
+	function addMarker(position, map, title, label, icon){
 		return new google.maps.Marker({
 			position: position,
 			map: map,
 			title: title,
-			label: label
+			label: label,
+			icon: icon
 		});
 	}
 	function addListener(map, event, callback){
 		map.addListener(event, callback);
+	}
+
+	function addMarkerListener(marker, event, callback){
+		marker.addListener(event, callback);
 	}
 	function geocodeAddress(address, callback){
 		geocoder = new google.maps.Geocoder();

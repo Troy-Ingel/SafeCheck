@@ -40,13 +40,13 @@ function mapController(GeoLocationFactory, googleMapsFactory, $scope){
 
 
 	function() getMarkerColor(status){
-		if(status == 'good'){
-			return '../img/GoogleMapsMarkers/green_MarkerS';
+		if(status == 'G'){
+			return '../../img/GoogleMapsMarkers/green_MarkerS';
 		}
-		else if(status == 'might need help'){
-			return '../img/GoogleMapsMarkers/yellow_MarkerA';
+		else if(status == 'I'){
+			return '../../img/GoogleMapsMarkers/yellow_MarkerA';
 		}else{
-			return '../img/GoogleMapsMarkers/red_MarkerA';
+			return '../../img/GoogleMapsMarkers/red_MarkerA';
 		}
 	}
 }
