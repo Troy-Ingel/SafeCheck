@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+<head>
+	<title>disaster-help</title>
+
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-cookies.min.js"></script>
+	<script src="lib/angular-routes.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+</head>
+<body>
+	<div ng-view></div>
+
+	<!-- Main Angular Module -->
+	<script src="app/app.js"></script>
+	<script src="app/app.config.js"></script>
+	<script src="app/app.routes.js"></script>
+
+	<!-- Controllers -->
+	<script src="app/controllers/homeController.js"></script>
+</body>
+</html>
