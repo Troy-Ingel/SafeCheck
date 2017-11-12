@@ -5,8 +5,11 @@ angular
 routeConfigSettings.$inject = ['$routeProvider'];
 
 function routeConfigSettings($routeProvider){
-	$routeProvider
-	.when('/', {
+	$routeProvider.when('/', {
 		templateUrl: 'app/views/check-in.html'
+	}).when('/shelters', {
+		templateUrl: 'app/views/shelters.html'
+	}).when('/directions', {
+		templateUrl: 'app/views/directions.html'
 	})
 }

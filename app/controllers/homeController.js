@@ -2,16 +2,20 @@ angular
 .module('mainApp')
 .controller('homeController', homeController);
 
-homeController.$inject = ['$scope', 'GeoLocationFactory', 'GoogleMapsFactory', 'CheckInFactory'];
+homeController.$inject = ['$location', '$scope', 'GeoLocationFactory', 'GoogleMapsFactory', 'CheckInFactory'];
 
-function homeController($scope, GeoLocationFactory, GoogleMapsFactory, CheckInFactory){
+function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory, CheckInFactory){
 	
+	var map = undefined;
+
+	$scope.getCurrentPage = getCurrentPage;
+
 	activate();
 
 	///////////
 
 	function activate(){
-		initMap();
+		// initMap();
 	}
 	function initMap() {
 		// $scope.loading = true;
@@ -36,6 +40,7 @@ function homeController($scope, GeoLocationFactory, GoogleMapsFactory, CheckInFa
 		});
 
 		CheckInFactory.getPeople().then(function(response){
+
 			let people = response;
 
 			for(let i = 0; i < people.length; i++){
@@ -50,8 +55,9 @@ function homeController($scope, GeoLocationFactory, GoogleMapsFactory, CheckInFa
 					GoogleMapsFactory.addMarker(position, map, name, '', getMarkerColor(status));
 				}
 			}
-		})
+		});
 	}
+
 	function getDirections(){
 		GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
 			console.log(response);
@@ -67,5 +73,9 @@ function homeController($scope, GeoLocationFactory, GoogleMapsFactory, CheckInFa
 		}else{
 			return '../../img/GoogleMapsMarkers/red_MarkerA';
 		}
+	}
+	
+	function getCurrentPage(){
+		return $location.path();
 	}
 }

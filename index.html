@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="mainApp">
 <head>
-	<title>disaster-help</title>
+	<title>Disaster Help</title>
 
 	<meta charset="UTF-8">
 
@@ -31,11 +31,14 @@
 			</div>
 			<div class="col-lg-4">
 				<ul class="nav nav-tabs">
-				  <li class="active"><a href="#">Check-in</a></li>
-				  <li><a href="#">Shelters</a></li>
-				  <li><a href="#">Directions</a></li>
+				  <li ng-class="{'active': getCurrentPage() == '/'}"><a href="#!/">Check-in</a></li>
+				  <li ng-class="{'active': getCurrentPage() == '/shelters'}"><a href="#!shelters">Shelters</a></li>
+				  <li ng-class="{'active': getCurrentPage() == '/directions'}"><a href="#!directions">Directions</a></li>
 				</ul>
+
+				<div ng-view></div>
 			</div>
+
 		</div>
 	</div>
 
