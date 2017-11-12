@@ -1,15 +1,38 @@
 <div style="padding: 0 20px">
 	<h2>Check-in</h2>
-	<p>Check in so that your family and friends know that you are safe. If you require assistance, checking in will help emrgency teams find you.</p>
+	
+	<div ng-show="!statusSet">
+		<p>Check in so that your family and friends know that you are safe. If you require assistance, checking in will help emrgency teams find you.</p>
 
-	<input class="form-control mt20" placeholder="First name">
-	<input class="form-control mt20" placeholder="Last name">
+		<div class="mt20">
+			First name:
+			<input ng-model="data.first_name" class="form-control" placeholder="First name">
+		</div>
 
-	<select class="form-control mt20">
-		<option value="G">Safe</option>
-		<option value="I">Might Need Help</option>
-		<option value="B">Need Help</option>
-	</select>
+		<div class="mt20">
+			Last name:
+			<input ng-model="data.last_name" class="form-control" placeholder="Last name">
+		</div>
 
-	<button class="btn btn-primary"></button>
+		<div class="mt20">
+			Current Address:
+			<input ng-model="$parent.currentAddress" class="form-control" placeholder="Current Address" readonly>
+		</div>
+
+		<div class="mt20">
+			Your status:
+			<select class="form-control" ng-model="data.status">
+				<option value="G">Safe</option>
+				<option value="I">Might Need Help</option>
+				<option value="B">Need Help</option>
+			</select>
+		</div>
+
+		<button ng-disabled="!$parent.lat || !$parent.lon || !data.first_name || !data.last_name" class="btn btn-primary mt20" ng-click="setStatus()">Set Status</button>
+	</div>
+
+	<div class="alert alert-success" ng-show="statusSet">
+		<h4>Status already set.</h4>
+		<p>If you require help. Emergency teams will find you soon.</p>
+	</div>
 </div>

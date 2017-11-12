@@ -9,6 +9,7 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 	var map = undefined;
 
 	$scope.getCurrentPage = getCurrentPage;
+	$scope.initMap = initMap;
 
 	activate();
 
@@ -24,6 +25,13 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 
 			$scope.$apply(function(){
 				$scope.loading = false;
+			});
+
+			$scope.lat = pos.coords.latitude;
+			$scope.lon = pos.coords.longitude;
+
+			GoogleMapsFactory.reverseGeocode($scope.lat, $scope.lon).then(function(response){
+				$scope.currentAddress = response.results[0].formatted_address;
 			});
 
 			var myLatlng = {
@@ -74,13 +82,11 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 			});
 		});
 	}
-
 	function getDirections(){
 		GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
 			console.log(response);
 		});
 	}
-
 	function getMarkerColor(status){
 		if(status == 'G'){
 			return 'img/green_marker.png';
@@ -91,7 +97,6 @@ function homeController($location, $scope, GeoLocationFactory, GoogleMapsFactory
 			return 'img/red_marker.png';
 		}
 	}
-	
 	function getCurrentPage(){
 		return $location.path();
 	}

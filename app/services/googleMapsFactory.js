@@ -79,7 +79,7 @@ function GoogleMapsFactory($http){
 			.catch((err)=>console.error(err));
 	}
 	function reverseGeocode(lat, long){
-		var url = 'includes/ajax.php?directions=true&reverse-geocode=true&latlng=' + lat.toString() + ',' + long.toString();
+		var url = 'includes/ajax.php?reverse-geocode=true&latlng=' + lat.toString() + ',' + long.toString();
 
 		return $http.get(url)
 			.then((res)=>res.data)

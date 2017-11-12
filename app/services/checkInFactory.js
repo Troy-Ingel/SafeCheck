@@ -8,7 +8,8 @@ CheckInFactory.$inject = ['$http'];
 function CheckInFactory($http){
 
 	var service = {
-		getPeople: getPeople
+		getPeople: getPeople,
+		addPerson: addPerson
 	};
 
 	return service;
@@ -17,6 +18,12 @@ function CheckInFactory($http){
 
 	function getPeople(){
 		return $http.get('includes/ajax.php?get-people=true')
+			.then((res)=>res.data)
+			.catch((err)=>console.error(err));
+	}
+	function addPerson(data){
+		data['add-status'] = 'true';
+		return $http.post('includes/ajax.php', data)
 			.then((res)=>res.data)
 			.catch((err)=>console.error(err));
 	}
