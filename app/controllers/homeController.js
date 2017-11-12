@@ -2,13 +2,10 @@ angular
 .module('mainApp')
 .controller('homeController', homeController);
 
-homeController.$inject = ['$scope', 'GeoLocationFactory', 'GoogleMapsFactory'];
+homeController.$inject = ['$scope', 'GeoLocationFactory', 'GoogleMapsFactory', 'CheckInFactory'];
 
-function homeController($scope, GeoLocationFactory, GoogleMapsFactory){
-	GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
-		console.log(response)
-	});
-
+function homeController($scope, GeoLocationFactory, GoogleMapsFactory, CheckInFactory){
+	
 	activate();
 
 	///////////
@@ -17,7 +14,7 @@ function homeController($scope, GeoLocationFactory, GoogleMapsFactory){
 		initMap();
 	}
 	function initMap() {
-		$scope.loading = true;
+		// $scope.loading = true;
 
 		GeoLocationFactory.getLocation(function(pos){
 
@@ -38,5 +35,13 @@ function homeController($scope, GeoLocationFactory, GoogleMapsFactory){
 			GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
 		});
 
+		CheckInFactory.getPeople().then(function(response){
+			console.log(response)
+		})
+	}
+	function getDirections(){
+		GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
+			console.log(response);
+		});
 	}
 }

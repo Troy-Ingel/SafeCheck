@@ -1,6 +1,6 @@
 <?
 include("functions.php");
-$apiKey = "AIzaSyDKWd6bBOs6KH10TcE5729ZTWeUdrIdyLI";
+$apiKey = "AIzaSyAqhA6LVr9PffEKYcXgrnm6fGpic5PJm0g";
 
 if(isset($_GET["directions"])){
 	$baseUrl = "https://maps.googleapis.com/maps/api/directions/json";
@@ -16,9 +16,49 @@ if(isset($_GET["directions"])){
 	$baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 	$latlng = $_GET["latlng"];
 	$url = $baseUrl . '?latlng=' . $latlng;
-	$url .= '&key=' . $apiKey;
+	$url .= '&key=' . urlencode($apiKey);
 
 	$json = file_get_contents($url);
 
 	print $json;
+} else if(isset($_POST["add-status"])){
+	$first_name = $_POST["first_name"];
+	$last_name = $_POST["last_name"];
+	$lat = $_POST["lat"];
+	$lon = $_POST["lon"];
+	$status = $_POST["status"];
+
+	$sql = "
+		INSERT INTO CheckIn (
+			first_name,
+			last_name,
+			lat,
+			lon,
+			date_added,
+			status
+		) VALUES (
+			'$first_name',
+			'$last_name',
+			'$lat',
+			'$lon',
+			CURDATE(),
+			'$status'
+		);
+	";
+
+	$id = runSQL($sql);
+	$_SESSION["user"] = $id;
+	print $id;
+} else if(isset($_GET["get-people"])){
+	$sql = "SELECT * FROM CheckIn";
+
+	$json = qryToJSON($sql);
+	
+	if($json == false){
+		print "{\"error\": \"No data was found\"}";
+	} else{
+		print $json;
+	}
 }
+
+?>

@@ -14,9 +14,30 @@
 	<script src="lib/bootstrap.min.js"></script>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKWd6bBOs6KH10TcE5729ZTWeUdrIdyLI"></script>
+	<style>
+		#map {
+			height: 100%;
+		}
+</style>
 </head>
 <body>
-	<div ng-view></div>
+	<div ng-controller="homeController">
+		<div class="row">
+			<div style="height: 100vh;border-right:1px solid #BCBCBC;padding:0;margin:0" class="col-lg-8">
+				<div class="text-center" ng-show="loading">
+					<h1>Loading map...</h1>
+				</div>
+				<div id="map" ng-show="!loading"></div>
+			</div>
+			<div class="col-lg-4">
+				<ul class="nav nav-tabs">
+				  <li class="active"><a href="#">Check-in</a></li>
+				  <li><a href="#">Shelters</a></li>
+				  <li><a href="#">Directions</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
 	<!-- Main Angular Module -->
 	<script src="app/app.js"></script>
@@ -25,9 +46,11 @@
 
 	<!-- Controllers -->
 	<script src="app/controllers/homeController.js"></script>
+	<script src="app/controllers/checkInController.js"></script>
 
 	<!-- Services -->
 	<script src="app/services/googleMapsFactory.js"></script>
 	<script src="app/services/geolocationFactory.js"></script>
+	<script src="app/services/checkInFactory.js"></script>
 </body>
 </html>
