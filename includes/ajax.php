@@ -2,6 +2,8 @@
 include("functions.php");
 $apiKey = "AIzaSyAqhA6LVr9PffEKYcXgrnm6fGpic5PJm0g";
 
+// AIzaSyAlLF1TqSdvI7DY8F0DCVPz7M2Rp62IzGU
+
 if(isset($_GET["directions"])){
 	$baseUrl = "https://maps.googleapis.com/maps/api/directions/json";
 
@@ -59,6 +61,17 @@ if(isset($_GET["directions"])){
 	} else{
 		print $json;
 	}
+} else if(isset($_GET["get-person"])){
+	$id = $_GET["id"];
+	$sql = "SELECT * FROM CheckIn WHERE id = $id";
+
+	$json = qryToJSON($sql);
+	
+	if($json == false){
+		print "{\"error\": \"No data was found\"}";
+	} else{
+		print $json;
+	}
 } else if(isset($_GET["get-shelters"])){
 	$sql = "SELECT * FROM Shelter";
 
@@ -69,5 +82,12 @@ if(isset($_GET["directions"])){
 	} else{
 		print $json;
 	}
+} else if(isset($_POST["update-status"])){
+	$id = $_POST["id"];
+	$status = $_POST["status"];
+
+	$sql = "UPDATE CheckIn SET status = '$status' WHERE id = $id";
+
+	runSQL($sql);
 }
 ?>

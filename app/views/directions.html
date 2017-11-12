@@ -3,7 +3,7 @@
 
 	<div ng-show="!directionsLoaded">
 		<input ng-model="$parent.currentAddress" class="form-control mt20" readonly>
-		<input ng-model="$parent.destination" class="form-control mt20">
+		<input ng-model="$parent.destination" class="form-control mt20" readonly>
 
 		<hr>
 		Walking
@@ -21,6 +21,9 @@
 
 	<div ng-show="directionsLoaded">
 		<div style="overflow-y: scroll;height: 400px">
+
+			<b>Origin: {{$parent.currentAddress}}</b>
+
 			<table class="table">
 				<tbody>
 					<tr ng-repeat="step in directions">
@@ -30,6 +33,8 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<b>Destination: {{$parent.destination}}</b>
 		</div>
 	</div>
 	

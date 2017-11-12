@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="mainApp">
 <head>
-	<title>Disaster Help</title>
+	<title>Safe Check</title>
 
 	<meta charset="UTF-8">
 
@@ -17,9 +17,9 @@
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKWd6bBOs6KH10TcE5729ZTWeUdrIdyLI"></script>
 	<style>
-		#map {
-			height: 100%;
-		}
+	#map {
+		height: 100%;
+	}
 </style>
 </head>
 <body>
@@ -30,15 +30,55 @@
 					<h1>Loading map...</h1>
 				</div>
 				<div id="map" ng-show="!loading"></div>
+
+				<div style="position: fixed;bottom: 0;left: 0;background-color: rgba(255,255,255,0.5);border:1px solid black;width: 27vw;">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<td>
+									<div align="center">
+										<img src="img/green_marker.png" alt="">
+									</div>
+								</td>
+								<td>
+									<div align="center">
+										<img src="img/yellow_marker.png" alt="">
+									</div>
+								</td>
+								<td>
+									<div align="center">
+										<img src="img/red_marker.png" alt="">
+									</div>
+								</td>
+								<td>
+									<div align="center">
+										<img src="img/blue_marker.png" alt="">
+									</div>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center"><b>Safe</b></td>
+								<td class="text-center"><b>Might need help</b></td>
+								<td class="text-center"><b>Need Help</b></td>
+								<td class="text-center"><b>Shelter</b></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 				<ul class="nav nav-tabs">
-				  <li ng-class="{'active': getCurrentPage() == '/'}"><a href="#!/">Check-in</a></li>
-				  <li ng-class="{'active': getCurrentPage() == '/shelters'}"><a href="#!shelters">Shelters</a></li>
-				  <li ng-class="{'active': getCurrentPage() == '/directions'}"><a href="#!directions">Directions</a></li>
+					<li ng-class="{'active': getCurrentPage() == '/'}"><a href="#!/">Check-in</a></li>
+					<li ng-class="{'active': getCurrentPage() == '/shelters'}"><a href="#!shelters">Shelters</a></li>
 				</ul>
 
 				<div ng-view></div>
+
+				<p style="position: fixed;bottom: 0;right: 10px;color:gray">&copy; 2017 Smart Check</p>
 			</div>
 
 		</div>

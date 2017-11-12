@@ -1,17 +1,17 @@
 <div style="padding: 0 20px">
 	<h2>Check-in</h2>
 	
-	<div ng-show="!statusSet">
+	<div ng-show="!statusSet || updating">
 		<p>Check in so that your family and friends know that you are safe. If you require assistance, checking in will help emrgency teams find you.</p>
 
 		<div class="mt20">
 			First name:
-			<input ng-model="data.first_name" class="form-control" placeholder="First name">
+			<input ng-readonly="statusSet" ng-model="data.first_name" class="form-control" placeholder="First name">
 		</div>
 
 		<div class="mt20">
 			Last name:
-			<input ng-model="data.last_name" class="form-control" placeholder="Last name">
+			<input ng-readonly="statusSet" ng-model="data.last_name" class="form-control" placeholder="Last name">
 		</div>
 
 		<div class="mt20">
@@ -31,8 +31,10 @@
 		<button ng-disabled="!$parent.lat || !$parent.lon || !data.first_name || !data.last_name" class="btn btn-primary mt20" ng-click="setStatus()">Set Status</button>
 	</div>
 
-	<div class="alert alert-success" ng-show="statusSet">
+	<div class="alert alert-success" ng-show="statusSet && !updating">
 		<h4>Status already set.</h4>
 		<p>If you require help. Emergency teams will find you soon.</p>
 	</div>
+
+	<button ng-show="statusSet && !updating" class="btn btn-default" ng-click="updating=true">Update Status</button>
 </div>
