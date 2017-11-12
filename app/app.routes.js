@@ -11,6 +11,7 @@ function routeConfigSettings($routeProvider){
 	}).when('/shelters', {
 		templateUrl: 'app/views/shelters.html'
 	}).when('/directions', {
-		templateUrl: 'app/views/directions.html'
+		templateUrl: 'app/views/directions.html',
+		controller: 'directionsController'
 	})
 }

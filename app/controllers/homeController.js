@@ -12,8 +12,6 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 	$scope.getCurrentPage = getCurrentPage;
 	$scope.initMap = initMap;
 
-	$interval(updateMarkers, 5000);
-
 	activate();
 
 	///////////
@@ -48,15 +46,18 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 				center: myLatlng
 			});
 
-			// GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
 			loadMarkers();
+			reStyleMarkers();
+			// $interval(updateMarkers, 2000);
+			
+			// GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
 		});
 	}
-	function getDirections(){
-		GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
-			console.log(response);
-		});
-	}
+	// function getDirections(){
+	// 	GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
+	// 		console.log(response);
+	// 	});
+	// }
 	function getMarkerColor(status){
 		if(status == 'G'){
 			return 'img/green_marker.png';
@@ -70,7 +71,6 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 	function getCurrentPage(){
 		return $location.path();
 	}
-
 	function loadMarkers(){
 		CheckInFactory.getPeople().then(function(response){
 
@@ -95,12 +95,11 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 			}
 		});
 	}
-
 	function updateMarkers(){
 		clearMarkers();
-		loadMarkers():
+		loadMarkers();
+		reStyleMarkers();
 	}
-
 	function clearMarkers(){
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(null);
@@ -108,17 +107,16 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 
 		markers = [];
 	}
-
 	function reStyleMarkers(){
-		var markerElemQry = 'div[style*="height: 100px; margin-top: -50px; margin-left: -50%; display: table; border-spacing: 0px;"]';
-
+		var markerElemQry = '[style*="height: 100px; margin-top: -50px; margin-left: -50%; display: table; border-spacing: 0px;"]';
+		console.log($('#mapContainer').find(markerElemQry));
 		var markerElements = $(markerElemQry);
 
 		console.log(markerElements)
 		markerElements.each(function(i, e){
 
 			console.log(e);
-			$(e).css('margin-top', '-55px');
+			$(e).css('margin-top', '-60px');
 		});
 	}
 }
