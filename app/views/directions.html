@@ -3,33 +3,34 @@
 
 	<div ng-show="!directionsLoaded">
 		<input ng-model="$parent.currentAddress" class="form-control mt20" readonly>
-		<input ng-model="destination" class="form-control mt20">
+		<input ng-model="$parent.destination" class="form-control mt20">
 
 		<hr>
-			Walking
-			<input type="radio" name="mode" checked ng-click="mode='walking';">
+		Walking
+		<input type="radio" name="mode" checked ng-click="mode='walking';">
 
-			Driving
-			<input type="radio" name="mode" ng-click="mode='driving';">
+		Driving
+		<input type="radio" name="mode" ng-click="mode='driving';">
 
-			Transit
-			<input type="radio" name="mode" ng-click="mode='transit';">
+		Transit
+		<input type="radio" name="mode" ng-click="mode='transit';">
 		<hr>
 
 		<button class="btn btn-primary mt20" ng-click="getDirections()">Get Directions</button>
 	</div>
 
 	<div ng-show="directionsLoaded">
-
-		<table class="table">
-			<tbody>
-				<tr ng-repeat="step in directions">
-					<td>{{step.html_instructions}}</td>
-					<td>{{step.distance.text}}</td>
-					<td>{{step.duration.text}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div style="overflow-y: scroll;height: 400px">
+			<table class="table">
+				<tbody>
+					<tr ng-repeat="step in directions">
+						<td ng-bind-html="step.html_instructions"></td>
+						<td>{{step.distance.text}}</td>
+						<td>{{step.duration.text}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	
 

@@ -8,9 +8,12 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 	
 	var map = undefined;
 	var markers = [];
+	var polyline = undefined;
 
 	$scope.getCurrentPage = getCurrentPage;
 	$scope.initMap = initMap;
+	$scope.addMarker = addMarker;
+	$scope.showDirections = showDirections;
 
 	activate();
 
@@ -48,16 +51,11 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 
 			loadMarkers();
 			reStyleMarkers();
-			// $interval(updateMarkers, 2000);
+			$interval(updateMarkers, 2000);
 			
 			// GoogleMapsFactory.addMarker(myLatlng, map, 'Title', 'Me');
 		});
 	}
-	// function getDirections(){
-	// 	GoogleMapsFactory.getWalkingDirections('210 glenn drive stratford', 'boston ma').then(function(response){
-	// 		console.log(response);
-	// 	});
-	// }
 	function getMarkerColor(status){
 		if(status == 'G'){
 			return 'img/green_marker.png';
@@ -118,5 +116,46 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 			console.log(e);
 			$(e).css('margin-top', '-60px');
 		});
+	}
+	function addMarker(name, desc, lat, lon){
+		let initial = name.substring(0, 1).toUpperCase();
+		let position = {lat: parseFloat(lat), lng: parseFloat(lon)};
+
+		var marker = GoogleMapsFactory.addMarker(position, map, name, initial, 'img/blue_marker.png');
+
+		map.setZoom(8);
+		map.setCenter(marker.getPosition());
+
+		markers.push(marker);
+
+		marker.addListener('click', function(){
+			console.log(marker.getPosition());
+		});
+	}
+	function showDirections(legs){
+		if(polyline) polyline.setMap(null);
+
+		var coordinates = [{lat: $scope.lat, lng: $scope.lon}];
+
+		var steps = legs[0].steps;
+
+		for (j = 0; j < steps.length; j++) {
+			var currentStep = steps[j];
+
+			coordinates.push({
+				lat: currentStep.end_location.lat,
+				lng: currentStep.end_location.lng,
+			});
+		}
+
+		polyline = new google.maps.Polyline({
+			path: coordinates,
+			geodesic: true,
+			strokeColor: '#FF0000',
+			strokeOpacity: 1.0,
+			strokeWeight: 2
+		});
+
+		polyline.setMap(map);
 	}
 }

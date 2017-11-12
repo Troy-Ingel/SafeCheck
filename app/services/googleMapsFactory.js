@@ -66,7 +66,7 @@ function GoogleMapsFactory($http){
 			.catch((err)=>console.error(err));
 	}
 	function getDirections(origin, destination, mode){
-		var url = 'includes/ajax.php?directions=true&mode=transit&origin=' + origin + '&destination=' + destination;
+		var url = 'includes/ajax.php?directions=true&mode=' + mode + '&origin=' + origin + '&destination=' + destination;
 
 		return $http.get(url)
 			.then((res)=>res.data.routes)

@@ -1,1 +1,1 @@
-angular.module('mainApp', ['ngRoute', 'ngCookies'])
+angular.module('mainApp', ['ngRoute', 'ngCookies', 'ngSanitize'])

@@ -59,6 +59,15 @@ if(isset($_GET["directions"])){
 	} else{
 		print $json;
 	}
-}
+} else if(isset($_GET["get-shelters"])){
+	$sql = "SELECT * FROM Shelter";
 
+	$json = qryToJSON($sql);
+	
+	if($json == false){
+		print "{\"error\": \"No data was found\"}";
+	} else{
+		print $json;
+	}
+}
 ?>

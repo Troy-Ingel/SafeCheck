@@ -9,7 +9,8 @@ function routeConfigSettings($routeProvider){
 		templateUrl: 'app/views/check-in.html',
 		controller: 'checkInController'
 	}).when('/shelters', {
-		templateUrl: 'app/views/shelters.html'
+		templateUrl: 'app/views/shelters.html',
+		controller: 'shelterController'
 	}).when('/directions', {
 		templateUrl: 'app/views/directions.html',
 		controller: 'directionsController'
