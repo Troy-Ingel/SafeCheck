@@ -11,6 +11,7 @@ function GoogleMapsFactory($http){
 		createMap: createMap,
 		addMarker: addMarker,
 		addListener: addListener,
+		addMarkerListener: addMarkerListener,
 		geocodeAddress: geocodeAddress,
 		getTransitDirections: getTransitDirections,
 		getDrivingDirections: getDrivingDirections,

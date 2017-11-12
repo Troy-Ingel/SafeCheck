@@ -2,9 +2,9 @@ angular
 .module('mainApp')
 .controller('homeController', homeController);
 
-homeController.$inject = ['$location', '$scope', '$interval', 'GeoLocationFactory', 'GoogleMapsFactory', 'CheckInFactory'];
+homeController.$inject = ['$window', '$location', '$scope', '$interval', 'GeoLocationFactory', 'GoogleMapsFactory', 'CheckInFactory'];
 
-function homeController($location, $scope, $interval, GeoLocationFactory, GoogleMapsFactory, CheckInFactory){
+function homeController($window, $location, $scope, $interval, GeoLocationFactory, GoogleMapsFactory, CheckInFactory){
 	
 	var map = undefined;
 	var markers = [];
@@ -68,6 +68,18 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 			return 'img/red_marker.png';
 		}
 	}
+
+	function getStatusText(status){
+		if(status == 'G'){
+			return 'Good';
+		}
+		else if(status == 'I'){
+			return 'May need assistance';
+		}else{
+			return 'HELP ME';
+		}
+	}
+
 	function getCurrentPage(){
 		return $location.path();
 	}
@@ -89,8 +101,18 @@ function homeController($location, $scope, $interval, GeoLocationFactory, Google
 					let initials = (curPerson.first_name.substring(0,1) + curPerson.last_name.substring(0,1)).toUpperCase();
 
 					let status = curPerson.status;
-					let name = curPerson.first_name + ' ' + curPerson.last_name;
-					markers.push(GoogleMapsFactory.addMarker(position, map, name, initials, getMarkerColor(status)));
+					let desciption = curPerson.first_name + ' ' + curPerson.last_name + '\n' + 'Status: ' + getStatusText(curPerson.status);
+					let marker = GoogleMapsFactory.addMarker(position, map, desciption, initials, getMarkerColor(status));
+
+					var infowindow = new google.maps.InfoWindow({
+						content: desciption
+					});
+
+					marker.addListener('click', function() {
+						infowindow.open(map, marker);
+					});
+					
+					markers.push(marker);
 				}
 			}
 		});
