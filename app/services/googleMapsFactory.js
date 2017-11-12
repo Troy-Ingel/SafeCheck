@@ -26,13 +26,15 @@ function GoogleMapsFactory($http){
 		return new google.maps.Map(document.getElementById(elementID), options);
 	}
 	function addMarker(position, map, title, label, icon){
-		return new google.maps.Marker({
+		var marker = new google.maps.Marker({
 			position: position,
 			map: map,
 			title: title,
 			label: label,
 			icon: icon
 		});
+
+		return marker;
 	}
 	function addListener(map, event, callback){
 		map.addListener(event, callback);
