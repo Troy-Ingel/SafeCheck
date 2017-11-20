@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+<head>
+	<title>Perfusion Simulation</title>
+
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-cookies.min.js"></script>
+	<script src="lib/angular-routes.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.6/angular-sanitize.js"></script>
+	<script src = "https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+	
+	<div>Hey there.</div>
+	<div ng-view></div>
+<!-- 	<div id = "chartContainer" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+ -->
+
+
+	<!-- <script src = "js/highchart.js"></script> -->
+	<!-- Main Angular Module -->
+	<script src="app/app.js"></script>
+	<script src="app/app.config.js"></script>
+	<script src="app/app.routes.js"></script>
+
+	<!-- Controllers -->
+	<script src="app/controllers/testController.js"></script>
+	<script src="app/controllers/chartController.js"></script>
+	<!-- <script src="app/controllers/checkInController.js"></script>
+	<script src="app/controllers/directionsController.js"></script>
+	<script src="app/controllers/shelterController.js"></script>
+ -->
+	<!-- Services -->
+	<!-- <script src="app/services/googleMapsFactory.js"></script>
+	<script src="app/services/geolocationFactory.js"></script>
+	<script src="app/services/checkInFactory.js"></script>
+	<script src="app/services/shelterFactory.js"></script> -->
+</body>
+</html>
